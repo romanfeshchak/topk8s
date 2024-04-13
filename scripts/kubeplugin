@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: bash kubeplugin.sh <resource_type> <resource_name>"
+    exit 1
+fi
+
+RESOURCE_TYPE=$1
+RESOURCE_NAME=$2
+
+kubectl top $RESOURCE_TYPE $RESOURCE_NAME | tail -n +2 | while read line
+do
+    echo "$RESOURCE_TYPE  $RESOURCE_NAME  $line"
+done
